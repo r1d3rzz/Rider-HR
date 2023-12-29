@@ -29,13 +29,13 @@
                     <span>Dashboard</span>
                 </li>
                 <li>
-                    <a href="/dashboard">
-                        <i class="fa-solid fa-chart-line"></i>
-                        <span>Dashboard</span>
+                    <a href="{{route('dashboard')}}">
+                        <i class="fa-solid fa-home"></i>
+                        <span>Home</span>
                     </a>
                 </li>
                 <li>
-                    <a href="/">
+                    <a href="{{route('employees.index')}}">
                         <i class="fa-solid fa-users"></i>
                         <span>Employees</span>
                     </a>

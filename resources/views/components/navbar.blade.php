@@ -1,6 +1,6 @@
 @props(['title'=>''])
 
-<div class="container-fluid">
+<div class="container-fluid header-navbar">
     <div class="row shadow-sm p-2 bg-white">
         <div class="d-flex justify-content-between col-lg-8 mx-auto align-items-center">
             <div>
