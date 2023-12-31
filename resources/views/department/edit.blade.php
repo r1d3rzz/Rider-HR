@@ -1,0 +1,28 @@
+<x-layout>
+    <x-slot name="title">
+        Department Edit
+    </x-slot>
+
+    <div class="container p-2 mb-3">
+        <div class="row justify-content-center">
+            <div class="col-lg-8">
+                <div class="card card-body">
+                    <form action="{{route('departments.update',$department->id)}}" method="POST" id="departments">
+                        @csrf
+                        @method('PUT')
+                        <div class="row">
+                            <div class="col-12 col-lg-6 mb-sm-1">
+                                <x-form.input name="name" value="{{$department->name}}" />
+                            </div>
+                        </div>
+                        <button class="btn btn-primary rounded-1">Update Department</button>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <x-slot name="script">
+        {!! JsValidator::formRequest('App\Http\Requests\UpdateDepartment', '#departments'); !!}
+    </x-slot>
+</x-layout>

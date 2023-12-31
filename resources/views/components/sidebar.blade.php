@@ -44,7 +44,7 @@
                     </a>
                 </li>
                 <li>
-                    <a href="#">
+                    <a href="{{route('departments.index')}}">
                         <i class="fa-solid fa-sitemap"></i>
                         <span>Departments</span>
                     </a>
