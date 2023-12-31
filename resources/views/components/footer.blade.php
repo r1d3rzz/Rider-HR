@@ -5,7 +5,7 @@
                 <a href="{{route('dashboard')}}"><i class="fa-solid fa-home"></i></a>
                 <a href="#"><i class="fa-solid fa-users"></i></a>
                 <a href="#"><i class="fa-solid fa-sitemap"></i></a>
-                <a href="#"><i class="fa-solid fa-user"></i></a>
+                <a href="{{route('profile.edit')}}"><i class="fa-solid fa-user"></i></a>
             </nav>
         </div>
     </div>

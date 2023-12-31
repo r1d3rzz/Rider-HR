@@ -7,17 +7,20 @@
             </div>
         </div>
         <div class="sidebar-header">
+            @if (auth()->user()->avatar)
             <div class="user-pic">
-                <img class="img-responsive img-rounded" src="https://i.pravatar.cc/300" alt="User picture">
+                <img class="img-responsive img-rounded" src="{{asset('storage/'.auth()->user()->avatar)}}"
+                    alt="{{auth()->user()->name}}">
             </div>
+            @endif
             <div class="user-info">
-                <span class="user-name">Jhon
-                    <strong>Smith</strong>
+                <span class="user-name">
+                    <strong>{{auth()->user()->name}}</strong>
                 </span>
                 <span class="user-role">Administrator</span>
                 <span class="user-status">
-                    <i class="fa fa-circle"></i>
-                    <span>Online</span>
+                    <i class="fa-solid fa-briefcase"></i>
+                    <span>{{auth()->user()->department->name}}</span>
                 </span>
             </div>
         </div>

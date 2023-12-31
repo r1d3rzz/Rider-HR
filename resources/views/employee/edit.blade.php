@@ -117,6 +117,7 @@
                 $("#preview-display").removeClass('d-none');
                 $("#current-image").addClass('d-none');
                 $('#preview').html('');
+                $('#delete-avatar').prop("checked",false);
 
                 for(let i = 0; i < img_length; i++){
                     $('#preview').append(`<img class="img-thumbnail" src="${URL.createObjectURL(e.target.files[i])}"/>`);
@@ -126,6 +127,7 @@
                         $("#current-image").removeClass('d-none');
                         $('#avatar').val('');
                         $('#preview').html('');
+                        $('#delete-avatar').prop("checked",false);
                     });
                 }
             });
