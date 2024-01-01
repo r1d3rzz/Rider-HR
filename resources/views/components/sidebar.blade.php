@@ -50,13 +50,13 @@
                     </a>
                 </li>
                 <li>
-                    <a href="#">
+                    <a href="{{route('roles.index')}}">
                         <i class="fa-solid fa-user-shield"></i>
                         <span>Roles</span>
                     </a>
                 </li>
                 <li>
-                    <a href="#">
+                    <a href="{{route('permissions.index')}}">
                         <i class="fa-solid fa-shield-halved"></i>
                         <span>Permissions</span>
                     </a>
