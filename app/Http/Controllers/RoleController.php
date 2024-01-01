@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Http\Requests\StoreRole;
 use App\Http\Requests\UpdateRole;
 use Illuminate\Validation\Rule;
+use Spatie\Permission\Models\Permission;
 use Spatie\Permission\Models\Role;
 use Yajra\DataTables\Facades\DataTables;
 
@@ -32,7 +33,14 @@ class RoleController extends Controller
 
                     return "<div class='btn-group'>$edit$delete</div>";
                 })
-                ->rawColumns(['action', 'actions'])
+                ->addColumn('permissions', function ($row) {
+                    $lists = '';
+                    foreach ($row->permissions as $permission) {
+                        $lists .= "<span class='badge bg-primary m-1'>" . $permission->name . "</span>";
+                    }
+                    return $lists;
+                })
+                ->rawColumns(['action', 'actions', 'permissions'])
                 ->make(true);
         }
         return view('role.index');
@@ -40,7 +48,7 @@ class RoleController extends Controller
 
     public function create()
     {
-        return view('role.create');
+        return view('role.create', ['permissions' => Permission::all()]);
     }
 
     public function store(StoreRole $request)
@@ -48,6 +56,8 @@ class RoleController extends Controller
         $role = new Role;
         $role->name = $request->name;
         $role->save();
+
+        $role->givePermissionTo($request->permissions);
 
         return redirect(route('roles.index'))->with('created', 'New Role Created Successful');
     }
@@ -57,6 +67,8 @@ class RoleController extends Controller
         $role = Role::findOrFail($id);
         return view('role.edit', [
             'role' => $role,
+            'permissions' => Permission::all(),
+            'old_permissions' => $role->permissions()->pluck('id')->toArray(),
         ]);
     }
 
@@ -69,6 +81,10 @@ class RoleController extends Controller
         $role = Role::findOrFail($id);
         $role->name = $request->name;
         $role->update();
+
+        $old_permissions = $role->permissions()->pluck('name')->toArray();
+        $role->revokePermissionTo($old_permissions);
+        $role->givePermissionTo($request->permissions);
 
         return redirect(route('roles.index'))->with('updated', 'Role Updated Successful');
     }

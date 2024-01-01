@@ -11,7 +11,7 @@
                     Create Permission
                 </a>
                 <div class="card card-body">
-                    <table id="permissions" class="table table-bordered nowrap" style="width:100%">
+                    <table id="permissions" class="table table-bordered nowrap align-middle" style="width:100%">
                         <thead>
                             <tr>
                                 <th>Permission Name</th>

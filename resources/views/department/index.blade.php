@@ -11,7 +11,7 @@
                     Create Department
                 </a>
                 <div class="card card-body">
-                    <table id="departments" class="table table-bordered nowrap" style="width:100%">
+                    <table id="departments" class="table table-bordered nowrap align-middle" style="width:100%">
                         <thead>
                             <tr>
                                 <th>Department Name</th>

@@ -11,11 +11,12 @@
                     Create Role
                 </a>
                 <div class="card card-body">
-                    <table id="roles" class="table table-bordered nowrap" style="width:100%">
+                    <table id="roles" class="table table-bordered nowrap align-middle" style="width:100%">
                         <thead>
                             <tr>
                                 <th>Role Name</th>
                                 <th class="hidden">Updated At</th>
+                                <th>Permissions</th>
                                 <th class="no-sort">Actions</th>
                             </tr>
                         </thead>
@@ -36,6 +37,7 @@
                     columns: [
                         {data: 'name', name: 'name'},
                         {data: 'updated_at', name: 'updated_at'},
+                        {data: 'permissions', name: 'permissions',class: 'd-flex flex-wrap justify-content-center'},
                         {data: 'actions', name: 'actions'},
                     ],
                 });
