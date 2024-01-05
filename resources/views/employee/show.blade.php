@@ -22,10 +22,12 @@
                                 <a href="#"><i class="fa-brands fa-linkedin fa-lg me-3"></i></a>
                                 <a href="#"><i class="fa-regular fa-envelope fa-lg"></i></a>
                             </div>
+                            @can('edit_employee')
                             <a href="/employees/{{$employee->id}}/edit" class="text-danger">
                                 <span><i class="fa-solid fa-edit"></i></span>
                                 Edit Employee
                             </a>
+                            @endcan
                         </div>
                         <div class="col-md-8">
                             <div class="card-body p-4">

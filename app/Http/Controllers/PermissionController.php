@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Http\Requests\StorePermission;
 use App\Http\Requests\UpdatePermission;
+use App\Models\User;
 use Illuminate\Validation\Rule;
 use Spatie\Permission\Models\Permission;
 use Yajra\DataTables\Facades\DataTables;
@@ -17,6 +18,10 @@ class PermissionController extends Controller
 
     public function index()
     {
+        if (!User::findOrFail(auth()->id())->can('view_permissions')) {
+            return abort(401);
+        }
+
         if (\request()->ajax()) {
             $data = Permission::latest()->get();
             return DataTables::of($data)
@@ -26,9 +31,16 @@ class PermissionController extends Controller
                     return $actionBtn;
                 })
                 ->addColumn('actions', function ($row) {
-                    $edit = '<a href="' . route("permissions.edit", $row->id) . '" class="btn btn-sm btn-warning">' . '<i class="fa-solid fa-edit"></i>' . '</a>';
+                    $edit = '';
+                    $delete = '';
 
-                    $delete = '<a href="#" id="del-btn" data-id="' . $row->id . '" class="btn btn-sm btn-danger">' . '<i class="fa-solid fa-trash-alt"></i>' . '</a>';
+                    if (User::findOrFail(auth()->id())->can('edit_permission')) {
+                        $edit = '<a href="' . route("permissions.edit", $row->id) . '" class="btn btn-sm btn-warning">' . '<i class="fa-solid fa-edit"></i>' . '</a>';
+                    }
+
+                    if (User::findOrFail(auth()->id())->can('remove_permission')) {
+                        $delete = '<a href="#" id="del-btn" data-id="' . $row->id . '" class="btn btn-sm btn-danger">' . '<i class="fa-solid fa-trash-alt"></i>' . '</a>';
+                    }
 
                     return "<div class='btn-group'>$edit$delete</div>";
                 })
@@ -40,11 +52,19 @@ class PermissionController extends Controller
 
     public function create()
     {
+        if (!User::findOrFail(auth()->id())->can('create_permission')) {
+            return abort(401);
+        }
+
         return view('permission.create');
     }
 
     public function store(StorePermission $request)
     {
+        if (!User::findOrFail(auth()->id())->can('create_permission')) {
+            return abort(401);
+        }
+
         $permission = new Permission;
         $permission->name = $request->name;
         $permission->save();
@@ -54,6 +74,10 @@ class PermissionController extends Controller
 
     public function edit($id)
     {
+        if (!User::findOrFail(auth()->id())->can('edit_permission')) {
+            return abort(401);
+        }
+
         $permission = Permission::findOrFail($id);
         return view('permission.edit', [
             'permission' => $permission,
@@ -62,6 +86,10 @@ class PermissionController extends Controller
 
     public function update($id, UpdatePermission $request)
     {
+        if (!User::findOrFail(auth()->id())->can('edit_permission')) {
+            return abort(401);
+        }
+
         request()->validate([
             "name" => [Rule::unique('permissions', 'name')->ignore($id)]
         ]);
@@ -75,6 +103,10 @@ class PermissionController extends Controller
 
     public function destroy($id)
     {
+        if (!User::findOrFail(auth()->id())->can('remove_permission')) {
+            return abort(401);
+        }
+
         $permission = Permission::findOrFail($id);
         $permission->delete();
 

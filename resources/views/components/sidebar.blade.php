@@ -17,7 +17,9 @@
                 <span class="user-name">
                     <strong>{{auth()->user()->name}}</strong>
                 </span>
-                <span class="user-role">Administrator</span>
+                @foreach (auth()->user()->roles as $role)
+                <span class="user-role">{{$role->name}}</span>
+                @endforeach
                 <span class="user-status">
                     <i class="fa-solid fa-briefcase"></i>
                     <span>{{auth()->user()->department->name}}</span>
@@ -37,30 +39,41 @@
                         <span>Home</span>
                     </a>
                 </li>
+                @can('view_employees')
                 <li>
                     <a href="{{route('employees.index')}}">
                         <i class="fa-solid fa-users"></i>
                         <span>Employees</span>
                     </a>
                 </li>
+                @endcan
+
+                @can('view_departments')
                 <li>
                     <a href="{{route('departments.index')}}">
                         <i class="fa-solid fa-sitemap"></i>
                         <span>Departments</span>
                     </a>
                 </li>
+                @endcan
+
+                @can('view_roles')
                 <li>
                     <a href="{{route('roles.index')}}">
                         <i class="fa-solid fa-user-shield"></i>
                         <span>Roles</span>
                     </a>
                 </li>
+                @endcan
+
+                @can('view_permissions')
                 <li>
                     <a href="{{route('permissions.index')}}">
                         <i class="fa-solid fa-shield-halved"></i>
                         <span>Permissions</span>
                     </a>
                 </li>
+                @endcan
             </ul>
         </div>
         <!-- sidebar-menu  -->

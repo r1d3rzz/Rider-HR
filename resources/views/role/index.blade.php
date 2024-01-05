@@ -5,23 +5,24 @@
 
     <div class="container p-2">
         <div class="row justify-content-center">
-            <div class="col-12">
+            <div class="col-10">
+                @can('create_role')
                 <a href="{{route('roles.create')}}" class="btn btn-primary rounded-1 mb-2">
                     <i class="fa-solid fa-plus"></i>
                     Create Role
                 </a>
+                @endcan
                 <div class="card card-body">
                     <table id="roles" class="table table-bordered nowrap align-middle" style="width:100%">
                         <thead>
                             <tr>
                                 <th>Role Name</th>
                                 <th class="hidden">Updated At</th>
-                                <th>Permissions</th>
+                                <th class="text-center">Permissions</th>
                                 <th class="no-sort">Actions</th>
                             </tr>
                         </thead>
-                        <tbody>
-                        </tbody>
+                        <tbody></tbody>
                     </table>
                 </div>
             </div>
@@ -37,7 +38,7 @@
                     columns: [
                         {data: 'name', name: 'name'},
                         {data: 'updated_at', name: 'updated_at'},
-                        {data: 'permissions', name: 'permissions',class: 'd-flex flex-wrap justify-content-center'},
+                        {data: 'permissions', name: 'permissions'},
                         {data: 'actions', name: 'actions'},
                     ],
                 });

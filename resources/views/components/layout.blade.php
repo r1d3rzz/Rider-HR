@@ -24,6 +24,9 @@
     {{-- Data Range Picker --}}
     <link rel="stylesheet" type="text/css" href="https://cdn.jsdelivr.net/npm/daterangepicker/daterangepicker.css" />
 
+    {{-- Select2 --}}
+    <link href="https://cdn.jsdelivr.net/npm/select2@4.1.0-rc.0/dist/css/select2.min.css" rel="stylesheet" />
+
     {{-- Custome CSS --}}
     <link rel="stylesheet" href="/css/app.css">
     <link rel="stylesheet" href="/css/sidebar.css">
@@ -69,6 +72,9 @@
     {{-- SweetAlert --}}
     <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
 
+    {{-- Select2 --}}
+    <script src="https://cdn.jsdelivr.net/npm/select2@4.1.0-rc.0/dist/js/select2.min.js"></script>
+
     {{-- Custome JS --}}
     <script src="/js/app.js"></script>
     <script src="/js/sidebar.js"></script>
@@ -98,6 +104,8 @@
                     },
                 }
             });
+
+            $('.select2multi').select2();
         });
     </script>
 

@@ -6,10 +6,12 @@
     <div class="container p-2">
         <div class="row justify-content-center">
             <div class="col-12">
+                @can('create_employee')
                 <a href="{{route('employees.create')}}" class="btn btn-primary rounded-1 mb-2">
                     <i class="fa-solid fa-user-plus"></i>
                     Create Employee
                 </a>
+                @endcan
                 <div class="card card-body">
                     <table id="employees" class="table table-bordered nowrap align-middle" style="width:100%">
                         <thead>
@@ -17,6 +19,7 @@
                                 <th>Employee ID</th>
                                 <th class="no-sort">Avatar</th>
                                 <th>Name</th>
+                                <th>Role</th>
                                 <th>Email</th>
                                 <th class="no-sort">Phone</th>
                                 <th class="no-sort">Department</th>
@@ -38,11 +41,12 @@
             $(function () {
                 var table = $('#employees').DataTable({
                     ajax: "{{ route('employees.index') }}",
-                    order: [[7, 'desc']],
+                    order: [[8, 'desc']],
                     columns: [
                         {data: 'employee_id', name: 'employee_id'},
                         {data: 'avatar', name: 'avatar',class: 'text-center'},
                         {data: 'name', name: 'name'},
+                        {data: 'roles', name: 'roles'},
                         {data: 'email', name: 'email'},
                         {data: 'phone', name: 'phone'},
                         {data: 'department', name: 'department'},

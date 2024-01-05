@@ -6,10 +6,12 @@
     <div class="container p-2">
         <div class="row justify-content-center">
             <div class="col-12">
+                @can('create_department')
                 <a href="{{route('departments.create')}}" class="btn btn-primary rounded-1 mb-2">
                     <i class="fa-solid fa-plus"></i>
                     Create Department
                 </a>
+                @endcan
                 <div class="card card-body">
                     <table id="departments" class="table table-bordered nowrap align-middle" style="width:100%">
                         <thead>

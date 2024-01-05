@@ -1,13 +1,13 @@
 <x-layout>
     <x-slot name="title">
-        Employee Edit
+        Edit Profile
     </x-slot>
 
     <div class="container p-2 mb-3">
         <div class="row justify-content-center">
             <div class="col-lg-8">
                 <div class="card card-body">
-                    <form action="{{route('employees.update',$employee->id)}}" method="POST" id="employees"
+                    <form action="{{route('employee_profile.update',$employee->id)}}" method="POST" id="profile"
                         enctype="multipart/form-data">
                         @csrf
                         @method('PUT')
@@ -71,40 +71,8 @@
                             @endif
                         </div>
                         <x-form.input name="password" type="password" optional="true" />
-                        <x-form.input name="employee_id" value="{{$employee->employee_id}}" />
-                        <x-form.input name="date_of_join" value="{{$employee->date_of_join}}" />
-                        <div class="mb-4">
-                            <select name="department_id" id="department" class="form-select">
-                                <option disabled selected>- Select Department -</option>
-                                @foreach ($departments as $department)
-                                <option {{old('department_id',$employee->department_id)==$department->id ?
-                                    "selected" : ''}}
-                                    value="{{$department->id}}">{{$department->name}}</option>
-                                @endforeach
-                            </select>
-                        </div>
-                        <div class="mb-4">
-                            <select name="is_present" id="is_present" class="form-select">
-                                <option disabled selected>- Is Present? -</option>
-                                <option value="1" {{old('is_present',$employee->is_present)=='1' ? "selected" :
-                                    ''
-                                    }}>Yes</option>
-                                <option value="0" {{old('is_present',$employee->is_present)=='0' ? "selected" :
-                                    ''
-                                    }}>Leave</option>
-                            </select>
-                        </div>
-                        <div class="mb-4">
-                            <x-label name="Roles" />
-                            <select class="select2multi form-select" name="roles[]" multiple="multiple">
-                                @foreach ($roles as $role)
-                                <option @if(in_array($role->id,$old_roles)) selected @endif
-                                    value="{{$role->name}}">{{$role->name}}</option>
-                                @endforeach
-                            </select>
-                        </div>
 
-                        <button class="btn btn-primary rounded-1">Update Employee</button>
+                        <button class="btn btn-primary rounded-1">Update Profile</button>
                     </form>
                 </div>
             </div>
@@ -133,28 +101,7 @@
                     });
                 }
             });
-
-            $('#birthday').daterangepicker({
-                "singleDatePicker": true,
-                "showDropdowns": true,
-                "autoApply": true,
-                "maxDate": moment(),
-                "locale": {
-                    "format": "DD/MM/YYYY",
-                }
-            });
-
-            $('#date_of_join').daterangepicker({
-                "singleDatePicker": true,
-                "showDropdowns": true,
-                "autoApply": true,
-                "maxDate": moment(),
-                "locale": {
-                    "format": "DD/MM/YYYY",
-                }
-            });
-
         </script>
-        {!! JsValidator::formRequest('App\Http\Requests\UpdateEmployee', '#employees'); !!}
+        {!! JsValidator::formRequest('App\Http\Requests\UpdateProfile', '#profile'); !!}
     </x-slot>
 </x-layout>

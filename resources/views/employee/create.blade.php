@@ -65,6 +65,15 @@
                                     </select>
                                 </div>
                                 <x-form.input name="password" type="password" />
+
+                                <div class="mb-4">
+                                    <x-label name="Roles" />
+                                    <select class="select2multi form-select" name="roles[]" multiple="multiple">
+                                        @foreach ($roles as $role)
+                                        <option value="{{$role->name}}">{{$role->name}}</option>
+                                        @endforeach
+                                    </select>
+                                </div>
                             </div>
                         </div>
                         <button class="btn btn-primary rounded-1">Create Employee</button>

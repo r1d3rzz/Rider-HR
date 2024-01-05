@@ -6,10 +6,12 @@
     <div class="container p-2">
         <div class="row justify-content-center">
             <div class="col-12">
+                @can('create_permission')
                 <a href="{{route('permissions.create')}}" class="btn btn-primary rounded-1 mb-2">
                     <i class="fa-solid fa-plus"></i>
                     Create Permission
                 </a>
+                @endcan
                 <div class="card card-body">
                     <table id="permissions" class="table table-bordered nowrap align-middle" style="width:100%">
                         <thead>
