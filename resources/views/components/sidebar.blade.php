@@ -20,10 +20,12 @@
                 @foreach (auth()->user()->roles as $role)
                 <span class="user-role">{{$role->name}}</span>
                 @endforeach
+                @if (auth()->user()->department)
                 <span class="user-status">
                     <i class="fa-solid fa-briefcase"></i>
                     <span>{{auth()->user()->department->name}}</span>
                 </span>
+                @endif
             </div>
         </div>
 
@@ -39,6 +41,16 @@
                         <span>Home</span>
                     </a>
                 </li>
+
+                @can('view_company_setting')
+                <li>
+                    <a href="{{route('company_settings.show',1)}}">
+                        <i class="fa-solid fa-building"></i>
+                        <span>Company Setting</span>
+                    </a>
+                </li>
+                @endcan
+
                 @can('view_employees')
                 <li>
                     <a href="{{route('employees.index')}}">

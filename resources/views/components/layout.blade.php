@@ -30,6 +30,8 @@
     {{-- Custome CSS --}}
     <link rel="stylesheet" href="/css/app.css">
     <link rel="stylesheet" href="/css/sidebar.css">
+
+    {{$style??false}}
 </head>
 
 <body class="bg-light">

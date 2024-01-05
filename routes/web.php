@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\CompanySettingController;
 use App\Http\Controllers\DepartmentController;
 use App\Http\Controllers\EmployeeController;
 use App\Http\Controllers\EmployeeProfileController;
@@ -38,5 +39,7 @@ Route::resource('/roles', RoleController::class);
 Route::resource('/permissions', PermissionController::class);
 
 Route::resource('/employee_profile', EmployeeProfileController::class)->only(['show', 'edit', 'update']);
+
+Route::resource('/company_settings', CompanySettingController::class)->only(['show', 'edit', 'update']);
 
 require __DIR__ . '/auth.php';

@@ -79,7 +79,7 @@ class EmployeeProfileController extends Controller
             return redirect('/');
         }
 
-        return redirect(route('employee_profile.show', auth()->id()))->with('updated', 'Employee Updated Successful');
+        return redirect(route('employee_profile.show', auth()->id()))->with('updated', 'Profile Updated Successful');
     }
 
     public function destroy($id)

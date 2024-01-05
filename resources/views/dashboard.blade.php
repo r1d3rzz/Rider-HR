@@ -17,16 +17,23 @@
                         @endif
                         <div class="col">
                             <table class="table">
+                                @if (auth()->user()->employee_id)
                                 <tr>
                                     <td>
                                         <i class="fa-solid fa-id-card-clip"></i>
                                         {{auth()->user()->employee_id}}
                                     </td>
                                 </tr>
+                                @endif
                                 <tr>
                                     <td>
                                         <i class="fa-solid fa-user-tie"></i>
                                         {{auth()->user()->name}}
+                                        <div>
+                                            @foreach (auth()->user()->roles as $role)
+                                            <span class="badge bg-primary me-1">{{$role->name}}</span>
+                                            @endforeach
+                                        </div>
                                     </td>
                                 </tr>
                                 <tr>
@@ -35,12 +42,14 @@
                                         {{auth()->user()->email}}
                                     </td>
                                 </tr>
+                                @if (auth()->user()->department)
                                 <tr>
                                     <td>
                                         <i class="fa-solid fa-briefcase"></i>
                                         {{auth()->user()->department->name}}
                                     </td>
                                 </tr>
+                                @endif
                             </table>
                         </div>
                     </div>
@@ -59,18 +68,6 @@
     <x-slot name="script">
         <script>
             $(document).ready(function () {
-                const Toast = Swal.mixin({
-                    toast: true,
-                    position: "top-end",
-                    showConfirmButton: false,
-                    timer: 2000,
-                    timerProgressBar: true,
-                    didOpen: (toast) => {
-                        toast.onmouseenter = Swal.stopTimer;
-                        toast.onmouseleave = Swal.resumeTimer;
-                    }
-                });
-
                 $(document).on("click","#logout-btn",function(e){
                     e.preventDefault();
                     let id = this.dataset.id;

@@ -90,6 +90,17 @@
                                 <h6 class="text-success">Company Information</h6>
                                 <hr class="mt-0 mb-4">
                                 <div class="row pt-1">
+                                    @if ($employee->roles)
+                                    <div class="col-6 mb-3">
+                                        <h6>Role</h6>
+                                        @foreach ($employee->roles as $role)
+                                        <div>
+                                            <span class="text-muted"><i class="fa-solid fa-briefcase"></i></span>
+                                            <span class="text-body">{{$role->name}}</span>
+                                        </div>
+                                        @endforeach
+                                    </div>
+                                    @endif
                                     <div class="col-6 mb-3">
                                         <h6>Is Present?</h6>
                                         @if ($employee->is_present)

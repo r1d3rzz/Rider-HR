@@ -89,6 +89,7 @@
                                 <h6 class="text-success">Company Information</h6>
                                 <hr class="mt-0 mb-4">
                                 <div class="row pt-1">
+                                    @if ($user->roles)
                                     <div class="col-6 mb-3">
                                         <h6>Role</h6>
                                         @foreach ($user->roles as $role)
@@ -98,6 +99,7 @@
                                         </div>
                                         @endforeach
                                     </div>
+                                    @endif
                                     <div class="col-6 mb-3">
                                         <h6>Is Present?</h6>
                                         @if ($user->is_present)
@@ -122,4 +124,29 @@
             </div>
         </div>
     </div>
+
+    <x-slot name="script">
+        <script type="text/javascript">
+            $(function () {
+                const Toast = Swal.mixin({
+                    toast: true,
+                    position: "top-end",
+                    showConfirmButton: false,
+                    timer: 2000,
+                    timerProgressBar: true,
+                    didOpen: (toast) => {
+                        toast.onmouseenter = Swal.stopTimer;
+                        toast.onmouseleave = Swal.resumeTimer;
+                    }
+                });
+
+                @if(session('updated'))
+                    Toast.fire({
+                        icon: "success",
+                        title: "{{session('updated')}}"
+                    });
+                @endif
+            });
+        </script>
+    </x-slot>
 </x-layout>
