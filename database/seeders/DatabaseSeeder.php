@@ -22,8 +22,7 @@ class DatabaseSeeder extends Seeder
 
         /*
         After run seeder file and insert
-        - models_has_roles table -> 1 / User\Models\App / 1
-        - create department data in website
+        close roles permissions in RoleController and update HR roles permission in website
         Enjoy :)
         */
 
