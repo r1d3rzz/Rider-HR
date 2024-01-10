@@ -26,6 +26,7 @@ return new class extends Migration
             $table->string('nrc_number')->unique()->nullable();
             $table->boolean('is_present')->default(true);
             $table->string('password');
+            $table->string('pin_code')->nullable();
             $table->timestamp('email_verified_at')->nullable();
             $table->rememberToken();
             $table->timestamps();

@@ -90,10 +90,6 @@ class DepartmentController extends Controller
             return abort(401);
         }
 
-        request()->validate([
-            "name" => [Rule::unique('departments', 'name')->ignore($id)]
-        ]);
-
         $department = Department::findOrFail($id);
         $department->name = $request->name;
         $department->update();

@@ -39,12 +39,6 @@ class EmployeeProfileController extends Controller
             return abort(401);
         }
 
-        request()->validate([
-            "email" => Rule::unique('users', 'email')->ignore($id),
-            "nrc_number" => Rule::unique('users', 'nrc_number')->ignore($id),
-            "phone" => Rule::unique('users', 'phone')->ignore($id),
-        ]);
-
         $employee = User::findOrFail($id);
         $employee->name = $request->name;
         $employee->email = $request->email;
@@ -64,6 +58,16 @@ class EmployeeProfileController extends Controller
             $employee->password;
         }
 
+        if ($request->pin_code) {
+            if (strlen($request->pin_code) >= 6) {
+                $employee->pin_code = $request->pin_code;
+            } else {
+                return back()->withErrors(["pin_code" => "The pic code field must be at least 6 characters."]);
+            }
+        } else {
+            $employee->password;
+        }
+
         if (isset($request->deleteAvatar) && $request->deleteAvatar == 'on') {
             $employee->avatar = null;
         } else {
@@ -73,6 +77,13 @@ class EmployeeProfileController extends Controller
         $employee->update();
 
         if (auth()->id() == $id && $request->password) {
+            Auth::guard('web')->logout();
+            $request->session()->invalidate();
+            $request->session()->regenerateToken();
+            return redirect('/');
+        }
+
+        if (auth()->id() == $id && $request->pin_code) {
             Auth::guard('web')->logout();
             $request->session()->invalidate();
             $request->session()->regenerateToken();

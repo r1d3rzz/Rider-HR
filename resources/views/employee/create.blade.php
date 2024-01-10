@@ -65,7 +65,7 @@
                                     </select>
                                 </div>
                                 <x-form.input name="password" type="password" />
-
+                                <x-form.input name="pin_code" type="number" />
                                 <div class="mb-4">
                                     <x-label name="Roles" />
                                     <select class="select2multi form-select" name="roles[]" multiple="multiple">

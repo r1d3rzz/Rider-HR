@@ -1,5 +1,7 @@
 <?php
 
+use App\Http\Controllers\AttendanceController;
+use App\Http\Controllers\CheckinCheckoutController;
 use App\Http\Controllers\CompanySettingController;
 use App\Http\Controllers\DepartmentController;
 use App\Http\Controllers\EmployeeController;
@@ -41,5 +43,10 @@ Route::resource('/permissions', PermissionController::class);
 Route::resource('/employee_profile', EmployeeProfileController::class)->only(['show', 'edit', 'update']);
 
 Route::resource('/company_settings', CompanySettingController::class)->only(['show', 'edit', 'update']);
+
+Route::get('/checkin-checkout', [CheckinCheckoutController::class, 'checkIncheckOut']);
+Route::post('/checkin', [CheckinCheckoutController::class, 'checkIncheckoutHandler']);
+
+Route::resource('/attendances', AttendanceController::class);
 
 require __DIR__ . '/auth.php';

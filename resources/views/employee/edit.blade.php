@@ -71,6 +71,7 @@
                             @endif
                         </div>
                         <x-form.input name="password" type="password" optional="true" />
+                        <x-form.input name="pin_code" type="number" optional="true" value="{{$employee->pin_code}}" />
                         <x-form.input name="employee_id" value="{{$employee->employee_id}}" />
                         <x-form.input name="date_of_join" value="{{$employee->date_of_join}}" />
                         <div class="mb-4">

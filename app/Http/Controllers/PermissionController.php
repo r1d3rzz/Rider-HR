@@ -90,10 +90,6 @@ class PermissionController extends Controller
             return abort(401);
         }
 
-        request()->validate([
-            "name" => [Rule::unique('permissions', 'name')->ignore($id)]
-        ]);
-
         $permission = Permission::findOrFail($id);
         $permission->name = $request->name;
         $permission->update();

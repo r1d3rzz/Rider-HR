@@ -5,16 +5,13 @@
 
     <div class="container p-2 mb-3">
         <div class="row justify-content-center">
-            <div class="col-lg-8">
+            <div class="col-lg-5">
                 <div class="card card-body">
                     <form action="{{route('departments.update',$department->id)}}" method="POST" id="departments">
                         @csrf
                         @method('PUT')
-                        <div class="row">
-                            <div class="col-12 col-lg-6 mb-sm-1">
-                                <x-form.input name="name" value="{{$department->name}}" />
-                            </div>
-                        </div>
+                        <x-form.input name="name" value="{{$department->name}}" />
+
                         <button class="btn btn-primary rounded-1">Update Department</button>
                     </form>
                 </div>

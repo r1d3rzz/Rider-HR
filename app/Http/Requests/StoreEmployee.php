@@ -21,6 +21,7 @@ class StoreEmployee extends FormRequest
      */
     public function rules(): array
     {
+        $id = $this->route('employees');
         return [
             "employee_id" => "required|unique:users,employee_id",
             "name" => 'required|min:3',
@@ -34,6 +35,7 @@ class StoreEmployee extends FormRequest
             "department_id" => 'required|exists:departments,id',
             "is_present" => 'required',
             "password" => 'required|min:8',
+            "pin_code" => 'required|min:6|max:6|unique:users,pin_code,' . $id,
         ];
     }
 }

@@ -117,6 +117,7 @@ class EmployeeController extends Controller
         $employee->department_id = $request->department_id;
         $employee->is_present = $request->is_present;
         $employee->password = $request->password;
+        $employee->pin_code = $request->pin_code;
         if ($request->file('avatar')) {
             $employee->avatar = $request->file('avatar')->store('Employee');
         }
@@ -149,13 +150,6 @@ class EmployeeController extends Controller
             return abort(401);
         }
 
-        request()->validate([
-            "employee_id" => Rule::unique('users', 'employee_id')->ignore($id),
-            "email" => Rule::unique('users', 'email')->ignore($id),
-            "nrc_number" => Rule::unique('users', 'nrc_number')->ignore($id),
-            "phone" => Rule::unique('users', 'phone')->ignore($id),
-        ]);
-
         $employee = User::findOrFail($id);
         $employee->employee_id = $request->employee_id;
         $employee->name = $request->name;
@@ -179,6 +173,16 @@ class EmployeeController extends Controller
             $employee->password;
         }
 
+        if ($request->pin_code) {
+            if (strlen($request->pin_code) >= 6) {
+                $employee->pin_code = $request->pin_code;
+            } else {
+                return back()->withErrors(["pin_code" => "The pic code field must be at least 6 characters."]);
+            }
+        } else {
+            $employee->pin_code;
+        }
+
         if (isset($request->deleteAvatar) && $request->deleteAvatar == 'on') {
             $employee->avatar = null;
         } else {
@@ -190,6 +194,13 @@ class EmployeeController extends Controller
         $employee->syncRoles($request->roles);
 
         if (auth()->id() == $id && $request->password) {
+            Auth::guard('web')->logout();
+            $request->session()->invalidate();
+            $request->session()->regenerateToken();
+            return redirect('/');
+        }
+
+        if (auth()->id() == $id && $request->pin_code) {
             Auth::guard('web')->logout();
             $request->session()->invalidate();
             $request->session()->regenerateToken();

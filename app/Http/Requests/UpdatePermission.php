@@ -21,8 +21,9 @@ class UpdatePermission extends FormRequest
      */
     public function rules(): array
     {
+        $id = $this->route('permission');
         return [
-            "name" => "required",
+            "name" => "required|unique:permissions,name," . $id,
         ];
     }
 }

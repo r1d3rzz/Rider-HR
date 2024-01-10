@@ -21,8 +21,9 @@ class UpdateDepartment extends FormRequest
      */
     public function rules(): array
     {
+        $id = $this->route('department');
         return [
-            "name" => "required",
+            "name" => "required|unique:departments,name," . $id,
         ];
     }
 }
