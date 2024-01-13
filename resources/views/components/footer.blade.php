@@ -1,19 +1,26 @@
 <footer class="p-2 container-fluid">
     <div class="row">
         <div class="col-md-5 mx-auto">
-            <nav class="d-flex justify-content-around">
-                <a href="{{route('dashboard')}}"><i class="fa-solid fa-home"></i></a>
+            <nav class="d-flex justify-content-around text-center">
+                <a class="text-decoration-none" href="{{route('dashboard')}}"><i class="fa-solid fa-home"></i><br><span
+                        class="d-none d-md-block">Home</span></a>
+
+                <a class="text-decoration-none" href="{{route('attendance_scan.index')}}"><i
+                        class="fa-solid fa-user-clock"></i><br><span class="d-none d-md-block">Attendance</span></a>
 
                 @can('view_employees')
-                <a href="{{route('employees.index')}}"><i class="fa-solid fa-users"></i></a>
+                <a class="text-decoration-none" href="{{route('employees.index')}}"><i
+                        class="fa-solid fa-users"></i><br><span class="d-none d-md-block">Employees</span></a>
                 @endcan
 
                 @can('view_departments')
-                <a href="{{route('departments.index')}}"><i class="fa-solid fa-sitemap"></i></a>
+                <a class="text-decoration-none" href="{{route('departments.index')}}"><i
+                        class="fa-solid fa-sitemap"></i><br><span class="d-none d-md-block">Departments</span></a>
                 @endcan
 
                 @can('view_profile')
-                <a href="{{route('employee_profile.show',auth()->id())}}"><i class="fa-solid fa-user"></i></a>
+                <a class="text-decoration-none" href="{{route('employee_profile.show',auth()->id())}}"><i
+                        class="fa-solid fa-user"></i><br><span class="d-none d-md-block">Profile</span></a>
                 @endcan
             </nav>
         </div>

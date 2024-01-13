@@ -70,7 +70,7 @@
                             </div>
                             @endif
                         </div>
-                        <x-form.input name="pin_code" type="number" optional="true" />
+                        <x-form.input name="pin_code" type="number" optional="true" value="{{$employee->pin_code}}" />
                         <x-form.input name="password" type="password" optional="true" />
 
                         <button class="btn btn-primary rounded-1">Update Profile</button>

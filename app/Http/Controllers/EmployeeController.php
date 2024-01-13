@@ -8,6 +8,7 @@ use App\Models\Department;
 use App\Models\User;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Storage;
 use Illuminate\Validation\Rule;
 use Spatie\Permission\Models\Role;
 use Yajra\DataTables\Facades\DataTables;
@@ -173,7 +174,7 @@ class EmployeeController extends Controller
             $employee->password;
         }
 
-        if ($request->pin_code) {
+        if (isset($request->pin_code) && $request->pin_code != $employee->pin_code) {
             if (strlen($request->pin_code) >= 6) {
                 $employee->pin_code = $request->pin_code;
             } else {
@@ -184,9 +185,19 @@ class EmployeeController extends Controller
         }
 
         if (isset($request->deleteAvatar) && $request->deleteAvatar == 'on') {
+            if (!is_null($employee->avatar)) {
+                Storage::disk('public')->delete($employee->avatar);
+            }
             $employee->avatar = null;
         } else {
-            $request->file('avatar') ? $employee->avatar = $request->file('avatar')->store('Employee') : $employee->avatar;
+            if ($request->file('avatar')) {
+                if (!is_null($employee->avatar)) {
+                    Storage::disk('public')->delete($employee->avatar);
+                }
+                $employee->avatar = $request->file('avatar')->store('Employee');
+            } else {
+                $employee->avatar;
+            }
         }
 
         $employee->update();
@@ -194,13 +205,6 @@ class EmployeeController extends Controller
         $employee->syncRoles($request->roles);
 
         if (auth()->id() == $id && $request->password) {
-            Auth::guard('web')->logout();
-            $request->session()->invalidate();
-            $request->session()->regenerateToken();
-            return redirect('/');
-        }
-
-        if (auth()->id() == $id && $request->pin_code) {
             Auth::guard('web')->logout();
             $request->session()->invalidate();
             $request->session()->regenerateToken();

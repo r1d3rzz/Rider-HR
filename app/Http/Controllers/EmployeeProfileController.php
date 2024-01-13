@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Http\Requests\UpdateProfile;
 use App\Models\User;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Storage;
 use Illuminate\Validation\Rule;
 
 class EmployeeProfileController extends Controller
@@ -62,28 +63,31 @@ class EmployeeProfileController extends Controller
             if (strlen($request->pin_code) >= 6) {
                 $employee->pin_code = $request->pin_code;
             } else {
-                return back()->withErrors(["pin_code" => "The pic code field must be at least 6 characters."]);
+                return back()->withErrors(["pin_code" => "The pin code field must be at least 6 characters."]);
             }
         } else {
             $employee->password;
         }
 
         if (isset($request->deleteAvatar) && $request->deleteAvatar == 'on') {
+            if (!is_null($employee->avatar)) {
+                Storage::disk('public')->delete($employee->avatar);
+            }
             $employee->avatar = null;
         } else {
-            $request->file('avatar') ? $employee->avatar = $request->file('avatar')->store('Employee') : $employee->avatar;
+            if ($request->file('avatar')) {
+                if (!is_null($employee->avatar)) {
+                    Storage::disk('public')->delete($employee->avatar);
+                }
+                $employee->avatar = $request->file('avatar')->store('Employee');
+            } else {
+                $employee->avatar;
+            }
         }
 
         $employee->update();
 
         if (auth()->id() == $id && $request->password) {
-            Auth::guard('web')->logout();
-            $request->session()->invalidate();
-            $request->session()->regenerateToken();
-            return redirect('/');
-        }
-
-        if (auth()->id() == $id && $request->pin_code) {
             Auth::guard('web')->logout();
             $request->session()->invalidate();
             $request->session()->regenerateToken();

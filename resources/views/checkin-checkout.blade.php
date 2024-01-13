@@ -10,7 +10,7 @@
                     <div>
                         <h5>QR Code</h5>
                         <img
-                            src="data:image/png;base64, {!! base64_encode(QrCode::format('png')->size(240)->generate('Make me into an QrCode!')) !!} ">
+                            src="data:image/png;base64, {!! base64_encode(QrCode::format('png')->size(240)->generate($hash_qr_value)) !!} ">
                         <p class="text-muted mt-3">Please scan your qr code to Check in or Checkout</p>
                     </div>
                     <hr>
@@ -27,6 +27,18 @@
     <x-slot name="script">
         <script>
             $(document).ready(function(){
+                const Toast = Swal.mixin({
+                    toast: true,
+                    position: "top",
+                    showConfirmButton: false,
+                    timer: 2000,
+                    timerProgressBar: true,
+                    didOpen: (toast) => {
+                        toast.onmouseenter = Swal.stopTimer;
+                        toast.onmouseleave = Swal.resumeTimer;
+                    }
+                });
+
                 $('#pin_code').pincodeInput({inputs:6,complete:function(value, e, errorElement){
                     $.ajax({
                         "url": '/checkin',

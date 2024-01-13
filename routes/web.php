@@ -1,6 +1,7 @@
 <?php
 
 use App\Http\Controllers\AttendanceController;
+use App\Http\Controllers\AttendanceScanController;
 use App\Http\Controllers\CheckinCheckoutController;
 use App\Http\Controllers\CompanySettingController;
 use App\Http\Controllers\DepartmentController;
@@ -48,5 +49,7 @@ Route::get('/checkin-checkout', [CheckinCheckoutController::class, 'checkIncheck
 Route::post('/checkin', [CheckinCheckoutController::class, 'checkIncheckoutHandler']);
 
 Route::resource('/attendances', AttendanceController::class);
+
+Route::resource('attendance_scan', AttendanceScanController::class)->only(['index', 'store']);
 
 require __DIR__ . '/auth.php';

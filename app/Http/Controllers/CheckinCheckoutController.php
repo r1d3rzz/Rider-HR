@@ -5,12 +5,15 @@ namespace App\Http\Controllers;
 use App\Models\CheckinCheckout;
 use App\Models\User;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Hash;
 
 class CheckinCheckoutController extends Controller
 {
     public function checkIncheckOut()
     {
-        return view('checkin-checkout');
+        return view('checkin-checkout', [
+            'hash_qr_value' => Hash::make(date('Y-m-d')),
+        ]);
     }
 
     public function checkIncheckoutHandler(Request $request)

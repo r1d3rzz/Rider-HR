@@ -4,7 +4,7 @@
     </x-slot>
 
 
-    <div class="container">
+    <div class="container p-lg-3 p-2">
         <div class="row justify-content-center">
             <div class="col-lg-6">
                 <div class="card card-body">
