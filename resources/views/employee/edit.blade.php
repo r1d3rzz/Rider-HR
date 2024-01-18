@@ -5,7 +5,7 @@
 
     <div class="container p-2 mb-3">
         <div class="row justify-content-center">
-            <div class="col-lg-8">
+            <div class="col-lg-8 mb-5">
                 <div class="card card-body">
                     <form action="{{route('employees.update',$employee->id)}}" method="POST" id="employees"
                         enctype="multipart/form-data">

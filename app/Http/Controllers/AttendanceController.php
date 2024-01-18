@@ -2,10 +2,14 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\User;
+use Carbon\CarbonPeriod;
+use App\Models\CheckinCheckout;
 use App\Http\Requests\StoreAttendance;
 use App\Http\Requests\UpdateAttendance;
-use App\Models\CheckinCheckout;
-use App\Models\User;
+use App\Models\CompanySetting;
+use Carbon\Carbon;
+use Illuminate\Http\Request;
 use Yajra\DataTables\Facades\DataTables;
 
 class AttendanceController extends Controller
@@ -22,7 +26,7 @@ class AttendanceController extends Controller
         }
 
         if (\request()->ajax()) {
-            $data = CheckinCheckout::all();
+            $data = CheckinCheckout::with('employee')->get();
             return DataTables::of($data)
                 ->addIndexColumn()
                 ->addColumn('action', function ($row) {
@@ -127,5 +131,31 @@ class AttendanceController extends Controller
         $attendance->delete();
 
         return "success";
+    }
+
+    public function overview()
+    {
+        if (!User::findOrFail(auth()->id())->can('view_attendances')) {
+            return abort(401);
+        }
+
+        return view('attendance.overview');
+    }
+
+    public function overview_table(Request $request)
+    {
+        $month = $request->month;
+        $year = $request->year;
+        $employee_name = $request->employee_name;
+
+        $startOfMonth = $year . '-' . $month . '-01';
+        $endOfMonth = Carbon::parse($startOfMonth)->endOfMonth()->format('Y-m-d');
+
+        return view('components.attendance.overview-table', [
+            'periods' => CarbonPeriod::create($startOfMonth, $endOfMonth),
+            'employees' => User::orderBy('employee_id', 'desc')->where('name', 'like', '%' . $employee_name . '%')->get(),
+            'company_setting' => CompanySetting::find(1),
+            'attendances' => CheckinCheckout::whereMonth('date', $month)->whereYear('date', $year)->get(),
+        ])->render();
     }
 }

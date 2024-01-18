@@ -20,6 +20,13 @@ class AttendanceScanController extends Controller
 
     public function store(Request $request)
     {
+        if (now()->format('D') == 'Sat' || now()->format('D') == 'Sun') {
+            return [
+                'status' => 'fail',
+                'message' => 'Today is Off Day!',
+            ];
+        }
+
         if (!Hash::check(date('Y-m-d'), $request->hash_qr_value)) {
             return [
                 'status' => 'fail',

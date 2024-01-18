@@ -1,16 +1,18 @@
 <?php
 
-use App\Http\Controllers\AttendanceController;
-use App\Http\Controllers\AttendanceScanController;
-use App\Http\Controllers\CheckinCheckoutController;
-use App\Http\Controllers\CompanySettingController;
-use App\Http\Controllers\DepartmentController;
-use App\Http\Controllers\EmployeeController;
-use App\Http\Controllers\EmployeeProfileController;
-use App\Http\Controllers\RoleController;
-use App\Http\Controllers\PermissionController;
-use App\Http\Controllers\ProfileController;
 use Illuminate\Support\Facades\Route;
+use App\Http\Controllers\RoleController;
+use App\Http\Controllers\ProfileController;
+use App\Http\Controllers\EmployeeController;
+use App\Http\Controllers\AttendanceController;
+use App\Http\Controllers\DepartmentController;
+use App\Http\Controllers\PermissionController;
+use App\Http\Controllers\MyAttendanceController;
+use App\Http\Controllers\AttendanceScanController;
+use App\Http\Controllers\CompanySettingController;
+use App\Http\Controllers\CheckinCheckoutController;
+use App\Http\Controllers\EmployeeProfileController;
+use App\Models\User;
 
 /*
 |--------------------------------------------------------------------------
@@ -49,6 +51,13 @@ Route::get('/checkin-checkout', [CheckinCheckoutController::class, 'checkIncheck
 Route::post('/checkin', [CheckinCheckoutController::class, 'checkIncheckoutHandler']);
 
 Route::resource('/attendances', AttendanceController::class);
+Route::get('/attendances-overview', [AttendanceController::class, 'overview'])->name('attendances.overview');
+Route::get('/attendances-overview-table', [AttendanceController::class, 'overview_table'])->name('attendances.overview_table');
+
+Route::controller(MyAttendanceController::class)->group(function () {
+    Route::get('/my-attendances', 'index')->name('my_attendances.index');
+    Route::get('/my-attendances-overview-table', 'my_overview_table')->name('my_attendances.my_overview_table');
+});
 
 Route::resource('attendance_scan', AttendanceScanController::class)->only(['index', 'store']);
 

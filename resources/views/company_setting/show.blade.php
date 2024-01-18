@@ -75,7 +75,7 @@
                 </div>
 
                 @can('edit_company_setting')
-                <div class="mt-2">
+                <div class="mt-2 mb-5">
                     <a href="{{route('company_settings.edit',1)}}" class="btn btn-primary bg-gradient w-100">Edit
                         Company Setting</a>
                 </div>

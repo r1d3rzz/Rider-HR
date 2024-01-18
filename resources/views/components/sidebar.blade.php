@@ -91,7 +91,16 @@
                 <li>
                     <a href="{{route('attendances.index')}}">
                         <i class="fa-regular fa-calendar-check"></i>
-                        <span>Employees Attendances</span>
+                        <span>Attendances (Employees)</span>
+                    </a>
+                </li>
+                @endcan
+
+                @can('view_attendances')
+                <li>
+                    <a href="{{route('attendances.overview')}}">
+                        <i class="fa-regular fa-calendar-check"></i>
+                        <span>Attendances (Overviews)</span>
                     </a>
                 </li>
                 @endcan

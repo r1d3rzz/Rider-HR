@@ -3,7 +3,6 @@
         Rider Human Resources
     </x-slot>
 
-
     <div class="container p-lg-3 p-2">
         <div class="row justify-content-center">
             <div class="col-lg-6">
