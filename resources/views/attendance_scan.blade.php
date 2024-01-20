@@ -45,8 +45,8 @@
                     <div class="card card-body">
                         <div class="row mb-3">
                             <div class="col-md-4 mb-2 mb-md-0">
-                                <select id="month" class="form-select text-center">
-                                    <option disabled selected>-- Select Month --</option>
+                                <select class="form-select single-select-field" id="month">
+                                    <option></option>
                                     <option value="01" @if(now()->format('m') == '01') selected @endif>Jan</option>
                                     <option value="02" @if(now()->format('m') == '02') selected @endif>Feb</option>
                                     <option value="03" @if(now()->format('m') == '03') selected @endif>Mar</option>
@@ -62,8 +62,8 @@
                                 </select>
                             </div>
                             <div class="col-md-4 mb-2 mb-md-0">
-                                <select id="year" class="form-select text-center">
-                                    <option disabled selected>-- Select Year --</option>
+                                <select class="form-select single-select-field" id="year">
+                                    <option></option>
                                     @foreach (range(0,4) as $item)
                                         <option @if(now()->format('Y') == now()->format('Y') - $item) selected @endif value="{{now()->format('Y') - $item}}">
                                             {{now()->format('Y') - $item}}
@@ -117,6 +117,12 @@
                         {data: 'checkin_time', name: 'checkin_time'},
                         {data: 'checkout_time', name: 'checkout_time'},
                     ],
+                });
+
+                $('.single-select-field').select2( {
+                    theme: "bootstrap-5",
+                    width: $( this ).data( 'width' ) ? $( this ).data( 'width' ) : $( this ).hasClass( 'w-100' ) ? '100%' : 'style',
+                    placeholder: $( this ).data( 'placeholder' ),
                 });
 
                 var videoElem = document.getElementById('qr_scan_video');
