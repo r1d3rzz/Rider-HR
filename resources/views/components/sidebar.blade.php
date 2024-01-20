@@ -60,6 +60,15 @@
                 </li>
                 @endcan
 
+                @can('view_salaries')
+                <li>
+                    <a href="{{route('salaries.index')}}">
+                        <i class="fa-solid fa-money-check-dollar"></i>
+                        <span>Salaries</span>
+                    </a>
+                </li>
+                @endcan
+
                 @can('view_departments')
                 <li>
                     <a href="{{route('departments.index')}}">

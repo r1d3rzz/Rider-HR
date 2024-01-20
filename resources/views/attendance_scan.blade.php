@@ -75,23 +75,24 @@
                                 <button id="filterBtn" class="btn btn-primary rounded-1 w-100">Search</button>
                             </div>
                         </div>
+                        <div class="fs-4 text-muted mb-2 text-center text-md-start">Attendance Records</div>
                         <div id="attendances-overview-table"></div>
+                        <div class="card-body mb-5 mt-2">
+                            <table id="attendances" class="table table-bordered nowrap align-middle" style="width:100%">
+                                <thead>
+                                    <tr>
+                                        <th>Employee Name</th>
+                                        <th>Date</th>
+                                        <th>Checkin Time</th>
+                                        <th>Checkout Time</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                </tbody>
+                            </table>
+                        </div>
                     </div>
                 </form>
-                <div class="card card-body mb-5">
-                    <table id="attendances" class="table table-bordered nowrap align-middle" style="width:100%">
-                        <thead>
-                            <tr>
-                                <th>Employee Name</th>
-                                <th>Date</th>
-                                <th>Checkin Time</th>
-                                <th>Checkout Time</th>
-                            </tr>
-                        </thead>
-                        <tbody>
-                        </tbody>
-                    </table>
-                </div>
             </div>
         </div>
     </div>

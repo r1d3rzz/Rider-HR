@@ -12,6 +12,7 @@ use App\Http\Controllers\AttendanceScanController;
 use App\Http\Controllers\CompanySettingController;
 use App\Http\Controllers\CheckinCheckoutController;
 use App\Http\Controllers\EmployeeProfileController;
+use App\Http\Controllers\SalaryController;
 use App\Models\User;
 
 /*
@@ -36,6 +37,8 @@ Route::middleware('auth')->group(function () {
 });
 
 Route::resource('/employees', EmployeeController::class);
+
+Route::resource('/salaries', SalaryController::class);
 
 Route::resource('/departments', DepartmentController::class);
 

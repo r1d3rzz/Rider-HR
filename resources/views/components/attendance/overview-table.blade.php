@@ -3,7 +3,7 @@
         @if (request()->employee_name)
         <div><span class="fw-bold">Search:</span> {{request()->employee_name}}</div>
         @endif
-        <div><span class="fw-bold">Month:</span> {{request()->month}}</div>
+        <div><span class="fw-bold">Month:</span> {{Carbon\Carbon::create(null,request()->month,1)->format('F')}}</div>
         <div><span class="fw-bold">Year:</span> {{request()->year}}</div>
     </div>
 </div>
@@ -12,9 +12,12 @@
     <table class="table table-striped border table-bordered">
         <thead>
             <tr class="text-center">
-                <th class="p-2">Employee</th>
+                <th class="p-2 align-middle">Employee</th>
                 @foreach ($periods as $period)
-                    <th @if($period->format('D') == 'Sat' || $period->format('D') == 'Sun') class="text-bg-primary" @endif>{{$period->format('d')}}</th>
+                    <th class="@if($period->format('D') == 'Sat' || $period->format('D') == 'Sun') text-bg-primary @endif">
+                        {{$period->format('d')}}
+                        {{$period->format('D')}}
+                    </th>
                 @endforeach
             </tr>
         </thead>
@@ -38,7 +41,7 @@
                     if($attendance  ){
                         if($attendance->checkin_time <= $office_start_time){
                             $checkin_icon = '<i class="fa-solid fa-circle-check text-success fs-5 mb-2"></i>';
-                        }else if($attendance->checkin_time >= $office_start_time && $attendance->checkin_time <= $break_start_time){
+                        }else if($attendance->checkin_time >= $office_start_time && $attendance->checkin_time < $break_start_time){
                             $checkin_icon = '<i class="fa-solid fa-circle-check text-warning fs-5 mb-2"></i>';
                         }else{
                             $checkin_icon = '<i class="fa-regular fa-circle-xmark text-danger fs-5 mb-2"></i>';
