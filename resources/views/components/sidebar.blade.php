@@ -69,6 +69,15 @@
                 </li>
                 @endcan
 
+                @can('view_payrolls')
+                <li>
+                    <a href="{{route('payrolls.index')}}">
+                        <i class="fa-solid fa-file-invoice-dollar"></i>
+                        <span>Payrolls</span>
+                    </a>
+                </li>
+                @endcan
+
                 @can('view_departments')
                 <li>
                     <a href="{{route('departments.index')}}">

@@ -75,8 +75,15 @@
                                 <button id="filterBtn" class="btn btn-primary rounded-1 w-100">Search</button>
                             </div>
                         </div>
+
+                        <div class="fs-4 text-muted mb-2 text-center text-md-start">Payroll Records</div>
+                        <div id="payrolls-table"></div>
+
+                        <div class="my-3"></div>
+
                         <div class="fs-4 text-muted mb-2 text-center text-md-start">Attendance Records</div>
                         <div id="attendances-overview-table"></div>
+
                         <div class="card-body mb-5 mt-2">
                             <table id="attendances" class="table table-bordered nowrap align-middle" style="width:100%">
                                 <thead>
@@ -161,27 +168,31 @@
                     qrScanner.stop();
                 })
 
-                function getAttendancesOverview(){
+                function getOverview(url,selector,dataTableUrl = null){
                     var month = $('#month').val();
                     var year = $('#year').val();
 
                     $.ajax({
-                        url: `/my-attendances-overview-table?month=${month}&year=${year}`,
+                        url: `/${url}?month=${month}&year=${year}`,
                         type: "GET",
                         success: function(res){
-                            $('#attendances-overview-table').html(res);
+                            $(`${selector}`).html(res);
                         }
                     });
 
-                    table.ajax.url(`/my-attendances?month=${month}&year=${year}`).load();
+                    if(dataTableUrl != null){
+                        table.ajax.url(`/${dataTableUrl}?month=${month}&year=${year}`).load();
+                    }
                 }
 
                 $('#filterBtn').on('click',function(e){
                     e.preventDefault();
-                    getAttendancesOverview();
+                    getOverview('my-attendances-overview-table','#attendances-overview-table','my-attendances');
+                    getOverview('my-payroll-table','#payrolls-table');
                 });
 
-                getAttendancesOverview();
+                getOverview('my-attendances-overview-table','#attendances-overview-table','my-attendances');
+                getOverview('my-payroll-table','#payrolls-table');
 
             });
         </script>

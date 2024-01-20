@@ -12,6 +12,8 @@ use App\Http\Controllers\AttendanceScanController;
 use App\Http\Controllers\CompanySettingController;
 use App\Http\Controllers\CheckinCheckoutController;
 use App\Http\Controllers\EmployeeProfileController;
+use App\Http\Controllers\MyPayrollController;
+use App\Http\Controllers\PayrollController;
 use App\Http\Controllers\SalaryController;
 use App\Models\User;
 
@@ -57,9 +59,18 @@ Route::resource('/attendances', AttendanceController::class);
 Route::get('/attendances-overview', [AttendanceController::class, 'overview'])->name('attendances.overview');
 Route::get('/attendances-overview-table', [AttendanceController::class, 'overview_table'])->name('attendances.overview_table');
 
+Route::controller(PayrollController::class)->group(function () {
+    Route::get('/payrolls', 'index')->name('payrolls.index');
+    Route::get('/payrolls-table', 'payroll_table')->name('payrolls.payroll_table');
+});
+
 Route::controller(MyAttendanceController::class)->group(function () {
     Route::get('/my-attendances', 'index')->name('my_attendances.index');
     Route::get('/my-attendances-overview-table', 'my_overview_table')->name('my_attendances.my_overview_table');
+});
+
+Route::controller(MyPayrollController::class)->group(function () {
+    Route::get('/my-payroll-table', 'my_payroll_table')->name('my_payroll.my_payroll_table');
 });
 
 Route::resource('attendance_scan', AttendanceScanController::class)->only(['index', 'store']);

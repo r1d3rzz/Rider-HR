@@ -13,13 +13,11 @@
                         @method('PUT')
 
                         <div class="mb-4">
-                            <label for="employee_name" class="fs-6">Employee</label>
-                            <select class="select2multi form-select" name="user_id" id="employee_name">
-                                <option value="" disabled selected></option>
+                            <label class="fs-6">Employee Name</label>
+                            <select class="form-select single-select-field" name="user_id" data-placeholder="Choose Employee">
+                                <option></option>
                                 @foreach ($employees as $employee)
-                                <option {{old('user_id',$attendance->user_id)==$employee->id ? "selected" : ''}}
-                                    value="{{$employee->id}}">
-                                    {{$employee->name}} ({{$employee->employee_id}})</option>
+                                    <option @selected($employee->id == $attendance->user_id) value="{{$employee->id}}">{{$employee->name}}</option>
                                 @endforeach
                             </select>
                         </div>
@@ -39,8 +37,10 @@
     <x-slot name="script">
         <script>
             $(document).ready(function(){
-                $('#employee_name').select2({
-                    placeholder: '-- Select Employee --',
+                $( '.single-select-field' ).select2( {
+                    theme: "bootstrap-5",
+                    width: $( this ).data( 'width' ) ? $( this ).data( 'width' ) : $( this ).hasClass( 'w-100' ) ? '100%' : 'style',
+                    placeholder: $( this ).data( 'placeholder' ),
                 });
 
                 $('#date').daterangepicker({
