@@ -265,12 +265,16 @@ class ProjectController extends Controller
             $member->delete();
         }
 
-        foreach ($project->images as $old_image) {
-            Storage::disk('public')->delete('/project/images/' . $old_image);
+        if ($project->images) {
+            foreach ($project->images as $old_image) {
+                Storage::disk('public')->delete('/project/images/' . $old_image);
+            }
         }
 
-        foreach ($project->files as $old_file) {
-            Storage::disk('public')->delete('/project/files/' . $old_file);
+        if ($project->files) {
+            foreach ($project->files as $old_file) {
+                Storage::disk('public')->delete('/project/files/' . $old_file);
+            }
         }
 
         $project->delete();
