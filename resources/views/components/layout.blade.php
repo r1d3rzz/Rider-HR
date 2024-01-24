@@ -28,6 +28,9 @@
     <link href="https://cdn.jsdelivr.net/npm/select2@4.1.0-rc.0/dist/css/select2.min.css" rel="stylesheet" />
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/select2-bootstrap-5-theme@1.3.0/dist/select2-bootstrap-5-theme.min.css" />
 
+    {{-- Viewer Js --}}
+    <link rel="stylesheet" href="/css/viewer.min.css">
+
     {{-- Custome CSS --}}
     <link rel="stylesheet" href="/css/app.css">
     <link rel="stylesheet" href="/css/sidebar.css">
@@ -77,6 +80,9 @@
 
     {{-- Select2 --}}
     <script src="https://cdn.jsdelivr.net/npm/select2@4.1.0-rc.0/dist/js/select2.min.js"></script>
+
+    {{-- Viwer Js --}}
+    <script src="/js/viewer.min.js"></script>
 
     {{-- Custome JS --}}
     <script src="/js/app.js"></script>

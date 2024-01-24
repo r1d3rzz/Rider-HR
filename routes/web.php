@@ -1,9 +1,15 @@
 <?php
 
+use App\Models\User;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\RoleController;
+use App\Http\Controllers\SalaryController;
+use App\Http\Controllers\PayrollController;
 use App\Http\Controllers\ProfileController;
+use App\Http\Controllers\ProjectController;
 use App\Http\Controllers\EmployeeController;
+use App\Http\Controllers\MyPayrollController;
+use App\Http\Controllers\MyProjectController;
 use App\Http\Controllers\AttendanceController;
 use App\Http\Controllers\DepartmentController;
 use App\Http\Controllers\PermissionController;
@@ -12,10 +18,6 @@ use App\Http\Controllers\AttendanceScanController;
 use App\Http\Controllers\CompanySettingController;
 use App\Http\Controllers\CheckinCheckoutController;
 use App\Http\Controllers\EmployeeProfileController;
-use App\Http\Controllers\MyPayrollController;
-use App\Http\Controllers\PayrollController;
-use App\Http\Controllers\SalaryController;
-use App\Models\User;
 
 /*
 |--------------------------------------------------------------------------
@@ -74,5 +76,9 @@ Route::controller(MyPayrollController::class)->group(function () {
 });
 
 Route::resource('attendance_scan', AttendanceScanController::class)->only(['index', 'store']);
+
+Route::resource('my_projects', MyProjectController::class)->only(['index', 'show']);
+
+Route::resource('projects', ProjectController::class);
 
 require __DIR__ . '/auth.php';

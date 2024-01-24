@@ -87,6 +87,15 @@
                 </li>
                 @endcan
 
+                @can('view_projects')
+                <li>
+                    <a href="{{route('projects.index')}}">
+                        <i class="fa-solid fa-toolbox"></i>
+                        <span>Projects</span>
+                    </a>
+                </li>
+                @endcan
+
                 @can('view_roles')
                 <li>
                     <a href="{{route('roles.index')}}">

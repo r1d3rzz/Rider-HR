@@ -13,10 +13,8 @@
                         class="fa-solid fa-users"></i><br><span class="d-none d-md-block">Employees</span></a>
                 @endcan
 
-                @can('view_departments')
-                <a class="text-decoration-none" href="{{route('departments.index')}}"><i
-                        class="fa-solid fa-sitemap"></i><br><span class="d-none d-md-block">Departments</span></a>
-                @endcan
+                <a class="text-decoration-none" href="{{route('my_projects.index')}}"><i
+                        class="fa-solid fa-toolbox"></i><br><span class="d-none d-md-block">Projects</span></a>
 
                 @can('view_profile')
                 <a class="text-decoration-none" href="{{route('employee_profile.show',auth()->id())}}"><i
