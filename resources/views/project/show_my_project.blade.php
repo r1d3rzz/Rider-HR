@@ -3,6 +3,16 @@
         Projects | Detail & Tasks
     </x-slot>
 
+    <x-slot name="style">
+        <style>
+            .sortable-ghost{
+                background-color: rgba(0, 0, 0, 0.3);
+                border: 3px dotted black;
+                opacity: 0.5;
+            }
+        </style>
+    </x-slot>
+
     <div class="container-fluid p-2 px-lg-5 mb-5">
         <div class="row justify-content-center">
             <div class="col-lg-8 mb-2 mb-lg-0">
@@ -121,6 +131,9 @@
     </div>
 
     <x-slot name="script">
+        <!-- jsDelivr :: Sortable :: Latest (https://www.jsdelivr.com/package/npm/sortablejs) -->
+        <script src="https://cdn.jsdelivr.net/npm/sortablejs@latest/Sortable.min.js"></script>
+
         <script>
             $(document).ready(function(){
                 var taskMembersOption = "";
@@ -140,6 +153,75 @@
                     }
                 });
 
+                function sortTasks(){
+                    var pendingTasks = document.getElementById('pendingTasks');
+                    var inProgressTasks = document.getElementById('inProgressTasks');
+                    var completeTasks = document.getElementById('completeTasks');
+
+                    Sortable.create(pendingTasks,{
+                        group: "tasks",
+                        animation: 200,
+                        ghostClass: "sortable-ghost",
+                        store: {
+                            set: function(sortable){
+                                var order = sortable.toArray();
+                                localStorage.setItem('pendingTasks',order.join(','));
+                            }
+                        },
+                        onSort: function () {
+                            setTimeout(() => {
+                                var pendingTasks = localStorage.getItem('pendingTasks');
+                                $.ajax({
+                                    url: `/tasksDraggable?project_id=${project_id}&pendingTasks=${pendingTasks}`,
+                                    type: 'GET',
+                                });
+                            }, 1000);
+                        },
+                    });
+
+                    Sortable.create(inProgressTasks,{
+                        group: "tasks",
+                        animation: 200,
+                        ghostClass: "sortable-ghost",
+                        store: {
+                            set: function(sortable){
+                                var order = sortable.toArray();
+                                localStorage.setItem('inProgressTasks',order.join(','));
+                            }
+                        },
+                        onSort: function () {
+                            setTimeout(() => {
+                                var inProgressTasks = localStorage.getItem('inProgressTasks');
+                                $.ajax({
+                                    url: `/tasksDraggable?project_id=${project_id}&inProgressTasks=${inProgressTasks}`,
+                                    type: 'GET',
+                                });
+                            }, 1000);
+                        },
+                    });
+
+                    Sortable.create(completeTasks,{
+                        group: "tasks",
+                        animation: 200,
+                        ghostClass: "sortable-ghost",
+                        store: {
+                            set: function(sortable){
+                                var order = sortable.toArray();
+                                localStorage.setItem('completeTasks',order.join(','));
+                            }
+                        },
+                        onSort: function () {
+                            setTimeout(() => {
+                                var completeTasks = localStorage.getItem('completeTasks');
+                                $.ajax({
+                                    url: `/tasksDraggable?project_id=${project_id}&completeTasks=${completeTasks}`,
+                                    type: 'GET',
+                                });
+                            }, 1000);
+                        },
+                    });
+                }
+
                 leaders.forEach((leader)=>{
                     taskMembersOption += `<option value='${leader.id}'>${leader.name}</option>`;
                 });
@@ -156,6 +238,7 @@
                         type: "GET",
                         success:function(res){
                             $('#tasksRender').html(res);
+                            sortTasks();
                         }
                     });
                 }

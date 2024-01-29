@@ -17,6 +17,43 @@ class TaskController extends Controller
         ])->render();
     }
 
+    public function tasksDraggable(Request $request)
+    {
+        $project = Project::with('tasks')->where('id', $request->project_id)->firstOrFail();
+
+        $pendingTasks = explode(',', $request->pendingTasks);
+        foreach ($pendingTasks as $key => $task_id) {
+            $task = collect($project->tasks)->where('id', $task_id)->first();
+            if ($task) {
+                $task->serial_number = $key;
+                $task->status = "pending";
+                $task->update();
+            }
+        }
+
+        $inProgressTasks = explode(',', $request->inProgressTasks);
+        foreach ($inProgressTasks as $key => $task_id) {
+            $task = collect($project->tasks)->where('id', $task_id)->first();
+            if ($task) {
+                $task->serial_number = $key;
+                $task->status = "in_progress";
+                $task->update();
+            }
+        }
+
+        $completeTasks = explode(',', $request->completeTasks);
+        foreach ($completeTasks as $key => $task_id) {
+            $task = collect($project->tasks)->where('id', $task_id)->first();
+            if ($task) {
+                $task->serial_number = $key;
+                $task->status = "complete";
+                $task->update();
+            }
+        }
+
+        return "success";
+    }
+
     public function store(Request $request)
     {
         $task = new Task();

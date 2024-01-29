@@ -84,5 +84,6 @@ Route::resource('projects', ProjectController::class);
 
 Route::resource('/tasks', TaskController::class);
 Route::get("/tasksRender", [TaskController::class, 'tasksRender']);
+Route::get("/tasksDraggable", [TaskController::class, 'tasksDraggable']);
 
 require __DIR__ . '/auth.php';
