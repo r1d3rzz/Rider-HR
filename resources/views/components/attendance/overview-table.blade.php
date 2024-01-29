@@ -28,26 +28,33 @@
                     $checkin_icon = '';
                     $checkout_icon = '';
 
-
-                    if($attendance  ){
-                        if($attendance->checkin_time <= $office_start_time){
-                            $checkin_icon = '<i class="fa-solid fa-circle-check text-success fs-5 mb-2"></i>';
-                        }else if($attendance->checkin_time > $office_start_time && $attendance->checkin_time < $break_start_time){
-                            $checkin_icon = '<i class="fa-solid fa-circle-check text-warning fs-5 mb-2"></i>';
+                    if($attendance){
+                        if(!is_null($attendance->checkin_time)){
+                            if($attendance->checkin_time <= $office_start_time){
+                                $checkin_icon = '<i class="fa-solid fa-circle-check text-success fs-5 mb-2"></i>';
+                            }else if($attendance->checkin_time > $office_start_time && $attendance->checkin_time < $break_start_time){
+                                $checkin_icon = '<i class="fa-solid fa-circle-check text-warning fs-5 mb-2"></i>';
+                            }else{
+                                $checkin_icon = '<i class="fa-regular fa-circle-xmark text-danger fs-5 mb-2"></i>';
+                            }
                         }else{
                             $checkin_icon = '<i class="fa-regular fa-circle-xmark text-danger fs-5 mb-2"></i>';
                         }
 
-                        if($attendance->checkout_time >= $office_end_time){
-                            $checkout_icon = '<i class="fa-solid fa-circle-check text-success fs-5"></i>';
-                        }else if($attendance->checkout_time < $office_end_time && $attendance->checkout_time > $break_end_time){
-                            $checkout_icon = '<i class="fa-solid fa-circle-check text-warning fs-5"></i>';
-                        }else{
+                       if(!is_null($attendance->checkout_time)){
+                            if($attendance->checkout_time >= $office_end_time){
+                                $checkout_icon = '<i class="fa-solid fa-circle-check text-success fs-5"></i>';
+                            }else if($attendance->checkout_time < $office_end_time && $attendance->checkout_time > $break_end_time){
+                                $checkout_icon = '<i class="fa-solid fa-circle-check text-warning fs-5"></i>';
+                            }else{
+                                $checkout_icon = '<i class="fa-regular fa-circle-xmark text-danger fs-5"></i>';
+                            }
+                       }else{
                             $checkout_icon = '<i class="fa-regular fa-circle-xmark text-danger fs-5"></i>';
-                        }
+                       }
                     }
                 @endphp
-                <td @if($period->format('D') == 'Sat' || $period->format('D') == 'Sun') class="bg-info" @endif>
+                <td class="text-center @if($period->format('D') == 'Sat' || $period->format('D') == 'Sun') bg-info @endif">
                     {!! $checkin_icon !!}
                     <br>
                     {!! $checkout_icon !!}

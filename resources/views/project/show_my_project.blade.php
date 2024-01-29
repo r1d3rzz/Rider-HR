@@ -10,6 +10,10 @@
                 border: 3px dotted black;
                 opacity: 0.5;
             }
+
+            .select2-container {
+                z-index: 1067 !important;
+            }
         </style>
     </x-slot>
 

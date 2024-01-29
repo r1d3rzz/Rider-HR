@@ -44,19 +44,27 @@
 
                     $attendance = collect($attendances)->where('user_id',$employee->id)->where('date',$periodFormat)->first();
 
-                    if($attendance  ){
-                        if($attendance->checkin_time <= $office_start_time){
-                            $attendanceCount += 0.5;
-                        }else if($attendance->checkin_time > $office_start_time && $attendance->checkin_time < $break_start_time){
-                            $attendanceCount += 0.5;
+                    if($attendance){
+                        if(!is_null($attendance->checkin_time)){
+                            if($attendance->checkin_time <= $office_start_time){
+                                $attendanceCount += 0.5;
+                            }else if($attendance->checkin_time > $office_start_time && $attendance->checkin_time < $break_start_time){
+                                $attendanceCount += 0.5;
+                            }else{
+                                $attendanceCount += 0;
+                            }
                         }else{
                             $attendanceCount += 0;
                         }
 
-                        if($attendance->checkout_time >= $office_end_time){
-                            $attendanceCount += 0.5;
-                        }else if($attendance->checkout_time < $office_end_time && $attendance->checkout_time > $break_end_time){
-                            $attendanceCount += 0.5;
+                        if(!is_null($attendance->checkout_time)){
+                            if($attendance->checkout_time >= $office_end_time){
+                                $attendanceCount += 0.5;
+                            }else if($attendance->checkout_time < $office_end_time && $attendance->checkout_time > $break_end_time){
+                                $attendanceCount += 0.5;
+                            }else{
+                                $attendanceCount += 0;
+                            }
                         }else{
                             $attendanceCount += 0;
                         }

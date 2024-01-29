@@ -18,7 +18,3 @@ footer nav a {
     font-size: 1.1rem;
     color: inherit;
 }
-
-.select2-container {
-    z-index: 1067 !important;
-}
