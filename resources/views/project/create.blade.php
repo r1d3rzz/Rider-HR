@@ -25,7 +25,7 @@
                                 <div class="mb-4">
                                     <select name="members[]" multiple class="form-select single-select-field" id="members" data-placeholder="Select Project Members">
                                         <option></option>
-                                        <@foreach ($employees as $employee)
+                                        @foreach ($employees as $employee)
                                         <option value="{{$employee->id}}">{{$employee->name}}</option>
                                         @endforeach
                                     </select>

@@ -18,6 +18,7 @@ use App\Http\Controllers\AttendanceScanController;
 use App\Http\Controllers\CompanySettingController;
 use App\Http\Controllers\CheckinCheckoutController;
 use App\Http\Controllers\EmployeeProfileController;
+use App\Http\Controllers\TaskController;
 
 /*
 |--------------------------------------------------------------------------
@@ -80,5 +81,8 @@ Route::resource('attendance_scan', AttendanceScanController::class)->only(['inde
 Route::resource('my_projects', MyProjectController::class)->only(['index', 'show']);
 
 Route::resource('projects', ProjectController::class);
+
+Route::resource('/tasks', TaskController::class);
+Route::get("/tasksRender", [TaskController::class, 'tasksRender']);
 
 require __DIR__ . '/auth.php';
