@@ -1,11 +1,11 @@
 <x-layout>
     <x-slot name="title">
-        Projects | Detail
+        Projects | Detail & Tasks
     </x-slot>
 
-    <div class="container-fluid p-2 px-lg-5">
+    <div class="container-fluid p-2 px-lg-5 mb-5">
         <div class="row justify-content-center">
-            <div class="col-lg-8">
+            <div class="col-lg-8 mb-2 mb-lg-0">
                 <div class="card card-body">
                     <div class="fs-4 fw-bold">{{$project->title}}</div>
                     <div class="fs-6 mb-2">
@@ -46,10 +46,46 @@
                             {{$project->description}}
                         </p>
                     </div>
-                </div>
 
-                <div class="card card-body my-3 @if(!$project->images || !$project->images) d-none @endif">
-                    <div class="mb-2">
+                    <div class="row">
+                        <div class="col-lg-6">
+                            <div class="fs-5">Team Leaders</div>
+                            <div class="d-flex mt-3">
+                                @foreach ($project->leaders as $leader)
+                                <div class="text-center me-2">
+                                    @if ($leader->avatar)
+                                    <img src="{{asset('storage/'.$leader->avatar)}}" alt="{{$leader->name}}" width="60" class="mb-1">
+                                    @else
+                                    <img src="/img/temp-profile-image.jpg" alt="{{$leader->name}}" width="60" class="mb-1">
+                                    @endif
+
+                                    <small class="d-block">{{$leader->name}}</small>
+                                </div>
+                                @endforeach
+                            </div>
+                        </div>
+                        <div class="col-lg-6">
+                            <div class="fs-5 mt-3">Team Members</div>
+                            <div class="d-flex mt-3">
+                                @foreach ($project->members as $member)
+                                <div class="text-center me-2">
+                                    @if ($member->avatar)
+                                    <img src="{{asset('storage/'.$member->avatar)}}" alt="{{$member->name}}" width="60" class="mb-1">
+                                    @else
+                                    <img src="/image/temp_profile_img.jpg" alt="{{$member->name}}" width="60" class="mb-1">
+                                    @endif
+
+                                    <small class="d-block">{{$member->name}}</small>
+                                </div>
+                                @endforeach
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="col-lg-4">
+                <div class="@if(!$project->images || !$project->images) d-none @endif">
+                    <div class="mb-2 card card-body">
                         <div id="images">
                             @if ($project->images)
                                 <div class="fs-5 fw-bold">Images</div>
@@ -60,7 +96,7 @@
                         </div>
                     </div>
 
-                    <div class="mb-2">
+                    <div class="mb-2 card card-body">
                         @if ($project->files)
                             <div class="fs-5 fw-bold">Files</div>
                             <div class="d-flex mt-3">
@@ -75,36 +111,123 @@
                     </div>
                 </div>
             </div>
-            <div class="col-lg-4">
-                <div class="card card-body">
-                    <div class="fs-5">Team Leaders</div>
-                    <div class="d-flex mt-3">
-                        @foreach ($project->leaders as $leader)
-                        <div class="text-center me-2">
-                            @if ($leader->avatar)
-                            <img src="{{asset('storage/'.$leader->avatar)}}" alt="{{$leader->name}}" width="60" class="mb-1">
-                            @else
-                            <img src="/img/temp-profile-image.jpg" alt="{{$leader->name}}" width="60" class="mb-1">
-                            @endif
-
-                            <small class="d-block">{{$leader->name}}</small>
+        </div>
+        <div class="row mt-3 mb-3">
+            <div class="col-lg-10">
+                <h3 class="text-muted">Tasks</h3>
+                <div class="row">
+                    <div class="col-lg-4 mb-2 mb-lg-0">
+                        <div class="card">
+                            <div class="card-header text-bg-warning">
+                                <div>Pending Tasks</div>
+                            </div>
+                            <div class="card-body alert alert-warning mb-0">
+                                @foreach (range(1,5) as $item)
+                                <div class="card card-body mb-1">
+                                    <div class="d-flex justify-content-between align-items-center">
+                                        <div class="fs-5">Task Title</div>
+                                        <div>
+                                            <button class="btn btn-sm btn-warning"><i class="fa-solid fa-edit"></i></button>
+                                            <button class="btn btn-sm btn-danger"> <i class="fa-solid fa-trash-alt"></i></button>
+                                        </div>
+                                    </div>
+                                    <div class="mt-3 d-flex justify-content-between align-items-center">
+                                        <div>
+                                            <div>
+                                                <span><i class="fa-solid fa-clock"></i></span>
+                                                <span class="fw-bold">Feb 12</span>
+                                            </div>
+                                            <div>
+                                                <div class="badge bg-primary">Low</div>
+                                            </div>
+                                        </div>
+                                        <div>
+                                            <img src="/img/temp-profile-image.jpg" class="rounded-circle" alt="temp" width="40">
+                                        </div>
+                                    </div>
+                                </div>
+                                @endforeach
+                                <button class="btn bg-white border rounded-2 mt-2 w-100 d-flex justify-content-center align-items-center">
+                                    <div class="me-2"><i class="fa-solid fa-plus-circle"></i></div>
+                                    <div>Add Task</div>
+                                </button>
+                            </div>
                         </div>
-                        @endforeach
                     </div>
 
-                    <div class="fs-5 mt-3">Team Members</div>
-                    <div class="d-flex mt-3">
-                        @foreach ($project->members as $member)
-                        <div class="text-center me-2">
-                            @if ($member->avatar)
-                            <img src="{{asset('storage/'.$member->avatar)}}" alt="{{$member->name}}" width="60" class="mb-1">
-                            @else
-                            <img src="/image/temp_profile_img.jpg" alt="{{$member->name}}" width="60" class="mb-1">
-                            @endif
+                    <div class="col-lg-4 mb-2 mb-lg-0">
+                        <div class="card">
+                            <div class="card-header text-bg-secondary">
+                                <div>In Progress Tasks</div>
+                            </div>
+                            <div class="card-body alert alert-secondary mb-0">
+                                <div class="card card-body mb-1">
+                                    <div class="d-flex justify-content-between align-items-center">
+                                        <div class="fs-5">Task Title</div>
+                                        <div>
+                                            <button class="btn btn-sm btn-warning"><i class="fa-solid fa-edit"></i></button>
+                                            <button class="btn btn-sm btn-danger"> <i class="fa-solid fa-trash-alt"></i></button>
+                                        </div>
+                                    </div>
+                                    <div class="mt-3 d-flex justify-content-between align-items-center">
+                                        <div>
+                                            <div>
+                                                <span><i class="fa-solid fa-clock"></i></span>
+                                                <span class="fw-bold">Feb 12</span>
+                                            </div>
+                                            <div>
+                                                <div class="badge bg-primary">Low</div>
+                                            </div>
+                                        </div>
+                                        <div>
+                                            <img src="/img/temp-profile-image.jpg" class="rounded-circle" alt="temp" width="40">
+                                        </div>
+                                    </div>
+                                </div>
 
-                            <small class="d-block">{{$member->name}}</small>
+                                <button class="btn bg-white border rounded-2 mt-2 w-100 d-flex justify-content-center align-items-center">
+                                    <div class="me-2"><i class="fa-solid fa-plus-circle"></i></div>
+                                    <div>Add Task</div>
+                                </button>
+                            </div>
                         </div>
-                        @endforeach
+                    </div>
+
+                    <div class="col-lg-4 mb-2 mb-lg-0">
+                        <div class="card">
+                            <div class="card-header text-bg-primary">
+                                <div>Complete Tasks</div>
+                            </div>
+                            <div class="card-body alert alert-primary mb-0">
+                                <div class="card card-body mb-1">
+                                    <div class="d-flex justify-content-between align-items-center">
+                                        <div class="fs-5">Task Title</div>
+                                        <div>
+                                            <button class="btn btn-sm btn-warning"><i class="fa-solid fa-edit"></i></button>
+                                            <button class="btn btn-sm btn-danger"> <i class="fa-solid fa-trash-alt"></i></button>
+                                        </div>
+                                    </div>
+                                    <div class="mt-3 d-flex justify-content-between align-items-center">
+                                        <div>
+                                            <div>
+                                                <span><i class="fa-solid fa-clock"></i></span>
+                                                <span class="fw-bold">Feb 12</span>
+                                            </div>
+                                            <div>
+                                                <div class="badge bg-primary">Low</div>
+                                            </div>
+                                        </div>
+                                        <div>
+                                            <img src="/img/temp-profile-image.jpg" class="rounded-circle" alt="temp" width="40">
+                                        </div>
+                                    </div>
+                                </div>
+                                <button class="btn bg-white border rounded-2 mt-2 w-100 d-flex justify-content-center align-items-center">
+                                    <div class="me-2"><i class="fa-solid fa-plus-circle"></i></div>
+                                    <div>Add Task</div>
+                                </button>
+                            </div>
+                        </div>
                     </div>
                 </div>
             </div>
