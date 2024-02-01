@@ -59,6 +59,7 @@ Route::get('/checkin-checkout', [CheckinCheckoutController::class, 'checkIncheck
 Route::post('/checkin', [CheckinCheckoutController::class, 'checkIncheckoutHandler']);
 
 Route::resource('/attendances', AttendanceController::class);
+Route::get('/attendances_pdf_download', [AttendanceController::class, 'attendances_pdf_download'])->name('attendances_pdf_download');
 Route::get('/attendances-overview', [AttendanceController::class, 'overview'])->name('attendances.overview');
 Route::get('/attendances-overview-table', [AttendanceController::class, 'overview_table'])->name('attendances.overview_table');
 

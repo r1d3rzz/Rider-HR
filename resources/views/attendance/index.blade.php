@@ -7,10 +7,21 @@
         <div class="row justify-content-center">
             <div class="col-12">
                 @can('create_attendance')
-                <a href="{{route('attendances.create')}}" class="btn btn-primary rounded-1 mb-2">
-                    <i class="fa-solid fa-plus"></i>
-                    Create Attendance
-                </a>
+                <div class="mb-2 d-flex">
+                    <div class="me-2">
+                        <a href="{{route('attendances.create')}}" class="btn btn-primary rounded-1">
+                            <i class="fa-solid fa-plus"></i>
+                            Create Attendance
+                        </a>
+                    </div>
+
+                   <div>
+                        <a href="{{route('attendances_pdf_download')}}" target="_blank" class="btn btn-danger rounded-1">
+                            <i class="fa-solid fa-file-pdf"></i>
+                            Download Attendances
+                        </a>
+                   </div>
+                </div>
                 @endcan
                 <div class="card card-body">
                     <table id="attendances" class="table table-bordered nowrap align-middle" style="width:100%">

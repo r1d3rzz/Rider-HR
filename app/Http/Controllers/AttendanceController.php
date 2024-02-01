@@ -11,6 +11,7 @@ use App\Models\CompanySetting;
 use Carbon\Carbon;
 use Illuminate\Http\Request;
 use Yajra\DataTables\Facades\DataTables;
+use Mccarlosen\LaravelMpdf\Facades\LaravelMpdf as PDF;
 
 class AttendanceController extends Controller
 {
@@ -157,5 +158,14 @@ class AttendanceController extends Controller
             'company_setting' => CompanySetting::find(1),
             'attendances' => CheckinCheckout::whereMonth('date', $month)->whereYear('date', $year)->get(),
         ])->render();
+    }
+
+    public function attendances_pdf_download()
+    {
+        $attendances = CheckinCheckout::with('employee')->get();
+        $pdf = PDF::loadView('pdf.attendances_docs', [
+            'attendances' => $attendances,
+        ]);
+        return $pdf->stream('attendances.pdf');
     }
 }
